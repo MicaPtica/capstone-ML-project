@@ -1,9 +1,9 @@
 [tool.poetry]
-name = "capstone_ml_project_u_mitskevich"
+name = "capstone-project"
 version = "0.1.0"
-description = "\"\""
+description = ""
 authors = ["Uladzislau Mitskevich"]
-license = "\"MIT\""
+license = "MIT"
 
 [tool.poetry.dependencies]
 python = "^3.8"
