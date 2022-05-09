@@ -73,10 +73,10 @@ from sklearn.metrics import make_scorer
 
 def run_pipeline(dataset_path,save_model_path,random_state,test_split_ratio,use_scaler,max_iter,logreg_c,cv,cv_k):
     if cv==True:
-        print('CV on ')
+        click.echo(f"Cross-validation with {cv_k} folds would be performed.")
         scoring = {'accuracy': 'accuracy',
-            'precision': make_scorer(recall_score, average='macro'),
-            'recall': make_scorer(recall_score, average='macro')
+            'precision': make_scorer(recall_score, average='weighted'),
+            'recall': make_scorer(recall_score, average='weighted')
             }
         pipeline = create_pipeline(use_scaler, max_iter, logreg_c, random_state)
         features, target=get_dataset(dataset_path)
@@ -85,6 +85,16 @@ def run_pipeline(dataset_path,save_model_path,random_state,test_split_ratio,use_
         click.echo(f"Training Accuracy scores: {scores['train_accuracy']}.")
         click.echo(f"Training Precision  scores: {scores['train_precision']}.")
         click.echo(f"Training Recall  scores: {scores['train_recall']}.")
+        click.echo(f"Validation Accuracy scores: {scores['test_accuracy']}.")
+        click.echo(f"Validation Precision  scores: {scores['test_precision']}.")
+        click.echo(f"Validation Recall  scores: {scores['test_recall']}.")
+        click.echo(f"Mean Training Accuracy scores: {scores['train_accuracy'].mean()}.")
+        click.echo(f"Mean Validation Accuracy scores: {scores['test_accuracy'].mean()}.")
+        click.echo(f"Mean Training Precision  scores: {scores['train_precision'].mean()}.")
+        click.echo(f"Mean Validation Precision  scores: {scores['test_precision'].mean()}.")
+        click.echo(f"Mean Training Recall  scores: {scores['train_recall'].mean()}.")
+        click.echo(f"Mean Validation Recall  scores: {scores['test_recall'].mean()}.")
+        dump(pipeline, save_model_path)
 
     else:
 
